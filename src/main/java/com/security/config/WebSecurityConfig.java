@@ -32,21 +32,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
        http
-               .requestMatchers()
-               .anyRequest()
+            .requestMatchers()
+               //.anyRequest()
+               // .and()
+
+               // .authorizeRequests()
+               .antMatchers("/oauth/*")
                .and()
                .authorizeRequests()
-               .antMatchers("/oauth/*")
-               .permitAll();
+               .anyRequest().authenticated();
     }
 
-    @Autowired
+    /*@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
             .withUser("user").password("password").roles("USER");
     }
-
+*/
+    @Bean
     @Override
     protected UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
@@ -56,9 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
+   /* @Override
     @Bean // share AuthenticationManager for web and oauth
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
+    }*/
 }

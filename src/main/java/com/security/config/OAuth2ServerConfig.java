@@ -32,15 +32,16 @@ public class OAuth2ServerConfig {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http
-                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                    .and()
-                    .requestMatchers().anyRequest()
+                    /*.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .and()*/
+                    /*.requestMatchers().anyRequest()
                     .and()
                     .anonymous()
-                    .and()
+                    .and()*/
                     .authorizeRequests()
-                    .antMatchers("/product/**").access("#otuth2.hasScope('select') and hasRole('ROLE_USER')")
+                 //   .antMatchers("/product/**").access("#otuth2.hasScope('select') and hasRole('ROLE_USER')")
                     .antMatchers("/order/**").authenticated();
+
         }
 
         @Configuration
@@ -48,7 +49,6 @@ public class OAuth2ServerConfig {
         protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter{
 
             @Autowired
-            @Qualifier("authenticationManagerBean")
             AuthenticationManager authenticationManager;
 
             @Override
